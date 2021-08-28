@@ -27,6 +27,12 @@
         placeholder="Your Password"
         required
       />
+      <!-- error -->
+      <div
+        class="text-xs font-bold my-3 bg-gray-100 w-2/4 mx-auto rounded py-1 text-red-600"
+      >
+        {{ error }}
+      </div>
       <button class="bg-gray-100 py-1 px-4 font-semibold">Submit</button>
     </form>
   </div>
@@ -34,17 +40,21 @@
 
 <script>
 import { ref } from 'vue';
+import useSignup from '../composable/useSignup';
 export default {
   setup() {
+    const { error, appSignup } = useSignup();
+
     const yourName = ref('');
     const yourEmail = ref('');
     const yourPassword = ref('');
 
-    const signUp = () => {
-      console.log(yourName.value);
+    const signUp = async () => {
+      await appSignup(yourEmail.value, yourPassword.value, yourName.value);
+      // console.log('Hello');
     };
 
-    return { yourName, yourEmail, yourPassword, signUp };
+    return { yourName, yourEmail, yourPassword, signUp, error };
   },
 };
 </script>
