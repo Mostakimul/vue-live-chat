@@ -20,6 +20,12 @@
         placeholder="Your Password"
         required
       />
+      <!-- error -->
+      <div
+        class="text-xs font-bold my-3 bg-gray-100 w-2/4 mx-auto rounded py-1 text-red-600"
+      >
+        {{ error }}
+      </div>
 
       <button class="bg-gray-100 py-1 px-4 font-semibold">Submit</button>
     </form>
@@ -27,17 +33,23 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
+import { ref } from 'vue';
+import useLogin from '../composable/useLogin';
 export default {
   setup() {
+    const { error, appLogin } = useLogin();
+
     const yourEmail = ref('');
     const yourPassword = ref('');
 
-    const logIn = () => {
-      console.log(yourEmail.value);
+    const logIn = async () => {
+      await appLogin(yourEmail.value, yourPassword.value);
+      if (!error.value) {
+        console.log('User logged in!');
+      }
     };
 
-    return { yourEmail, yourPassword, logIn };
+    return { yourEmail, yourPassword, logIn, error };
   },
 };
 </script>
