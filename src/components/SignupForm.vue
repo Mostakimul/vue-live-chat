@@ -29,6 +29,7 @@
       />
       <!-- error -->
       <div
+        v-if="error"
         class="text-xs font-bold my-3 bg-gray-100 w-2/4 mx-auto rounded py-1 text-red-600"
       >
         {{ error }}
@@ -42,7 +43,7 @@
 import { ref } from 'vue';
 import useSignup from '../composable/useSignup';
 export default {
-  setup() {
+  setup(props, context) {
     const { error, appSignup } = useSignup();
 
     const yourName = ref('');
@@ -51,7 +52,10 @@ export default {
 
     const signUp = async () => {
       await appSignup(yourEmail.value, yourPassword.value, yourName.value);
-      // console.log('Hello');
+      if (!error.value) {
+        // console.log('User logged in!');
+        context.emit('signedup');
+      }
     };
 
     return { yourName, yourEmail, yourPassword, signUp, error };

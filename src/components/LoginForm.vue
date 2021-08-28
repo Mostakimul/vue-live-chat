@@ -22,6 +22,7 @@
       />
       <!-- error -->
       <div
+        v-if="error"
         class="text-xs font-bold my-3 bg-gray-100 w-2/4 mx-auto rounded py-1 text-red-600"
       >
         {{ error }}
@@ -36,7 +37,7 @@
 import { ref } from 'vue';
 import useLogin from '../composable/useLogin';
 export default {
-  setup() {
+  setup(props, context) {
     const { error, appLogin } = useLogin();
 
     const yourEmail = ref('');
@@ -45,7 +46,8 @@ export default {
     const logIn = async () => {
       await appLogin(yourEmail.value, yourPassword.value);
       if (!error.value) {
-        console.log('User logged in!');
+        // console.log('User logged in!');
+        context.emit('loggedIn');
       }
     };
 

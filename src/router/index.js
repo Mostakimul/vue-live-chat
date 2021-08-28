@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import Chatroom from '../views/Chatroom.vue';
 import Welcome from '../views/Welcome.vue';
 
 const routes = [
@@ -7,6 +8,11 @@ const routes = [
     name: 'Welcome',
     component: Welcome,
   },
+  {
+    path: '/chat',
+    name: 'Chatroom',
+    component: Chatroom
+  }
 ];
 
 const router = createRouter({

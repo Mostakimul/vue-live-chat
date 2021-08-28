@@ -1,7 +1,7 @@
 <template>
   <div class="mt-5">
     <div v-if="showLogin">
-      <LoginForm />
+      <LoginForm @loggedIn="enterChat" />
 
       <p class="mt-2">
         Don't have an account?
@@ -11,7 +11,7 @@
       </p>
     </div>
     <div v-else>
-      <SignupForm />
+      <SignupForm @signedup="enterChat" />
       <p class="mt-2">
         Already have an account?
         <span @click="showLogin = true" class="cursor-pointer text-red-600"
@@ -26,6 +26,7 @@
 import SignupForm from '../components/SignupForm.vue';
 import LoginForm from '../components/LoginForm.vue';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 export default {
   components: {
     SignupForm,
@@ -33,8 +34,13 @@ export default {
   },
   setup() {
     const showLogin = ref(true);
+    const router = useRouter();
 
-    return { showLogin };
+    const enterChat = () => {
+      router.push({ name: 'Chatroom' });
+    };
+
+    return { showLogin, enterChat };
   },
 };
 </script>
