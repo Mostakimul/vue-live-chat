@@ -9,10 +9,10 @@ const appLogin = async (yourEmail, yourPassword) => {
   try {
     const res = await vueChatAuth.signInWithEmailAndPassword(yourEmail, yourPassword)
     error.value = null
-    console.log(res);
+    // console.log(res);
     return res
   } catch (err) {
-    console.log(err.message);
+    // console.log(err.message);
     error.value = err.message;
   }
 };

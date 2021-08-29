@@ -1,9 +1,9 @@
 <template>
-  <nav class="flex justify-between align-middle p-3 mt-2">
-    <div>
-      <p class="text-gray-100 font-semibold">Mostakimul Karim</p>
+  <nav v-if="user" class="flex justify-between align-middle p-3 mt-2">
+    <div class="text-left">
+      <p class="text-gray-100 font-semibold">{{ user.displayName }}</p>
       <p class="text-gray-100 font-sans font-extralight">
-        Email: mostakimulkarim@gmail.com
+        Email: {{ user.email }}
       </p>
     </div>
     <button
@@ -18,10 +18,12 @@
 <script>
 import { useRouter } from 'vue-router';
 import useLogout from '../composable/useLogout';
+import getUser from '../composable/getUser';
 export default {
   setup() {
     const { error, appLogout } = useLogout();
     const router = useRouter();
+    const { user } = getUser();
 
     const logout = async () => {
       await appLogout();
@@ -31,7 +33,7 @@ export default {
       }
     };
 
-    return { logout };
+    return { logout, user };
   },
 };
 </script>
