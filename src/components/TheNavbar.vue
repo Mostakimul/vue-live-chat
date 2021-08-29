@@ -16,20 +16,17 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
 import useLogout from '../composable/useLogout';
 import getUser from '../composable/getUser';
 export default {
   setup() {
     const { error, appLogout } = useLogout();
-    const router = useRouter();
     const { user } = getUser();
 
     const logout = async () => {
       await appLogout();
       if (!error.value) {
-        // console.log('User Loggedout!!!');
-        router.push('/');
+        console.log('User Loggedout!!!');
       }
     };
 

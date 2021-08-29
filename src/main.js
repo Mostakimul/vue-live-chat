@@ -1,9 +1,17 @@
 import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router';
-import './index.css';
 import '../src/assets/app.css';
+import App from './App.vue';
+import { vueChatAuth } from './firebase/config';
+import './index.css';
+import router from './router';
 
-createApp(App)
+
+let app
+vueChatAuth.onAuthStateChanged(() => {
+  if(!app) {
+    app = createApp(App)
   .use(router)
   .mount('#app');
+  }
+})
+
