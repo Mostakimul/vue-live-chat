@@ -6,7 +6,7 @@
     </div>
 
     <!-- check if we have documents -->
-    <div v-if="documents" class="max-h-96 overflow-auto">
+    <div v-if="documents" class="max-h-96 overflow-auto" ref="chats">
       <div v-for="doc in formatDate" :key="doc.id" class="my-4">
         <span class="block text-gray-400 text-xs mb-1">{{
           doc.created_at
@@ -21,7 +21,7 @@
 <script>
 import getCollection from "../composable/getCollection";
 import { formatDistanceToNow } from "date-fns";
-import { computed } from "vue";
+import { computed, onUpdated, ref } from "vue";
 export default {
   setup() {
     const { documents, error } = getCollection("messages");
@@ -36,7 +36,14 @@ export default {
       }
     });
 
-    return { error, documents, formatDate };
+    // scrolling problem solving
+    const chats = ref(null);
+
+    onUpdated(() => {
+      chats.value.scrollTop = chats.value.scrollHeight;
+    });
+
+    return { error, documents, formatDate, chats };
   },
 };
 </script>
