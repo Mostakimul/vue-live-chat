@@ -14,11 +14,24 @@ const requireAuth = (to, from, next) => {
     next()
   }
 }
+
+// route guard
+const requireNoAuth = (to, from, next) => {
+  // get user
+  let user = vueChatAuth.currentUser
+  // check if user is not null
+  if(user) {
+    next({name: 'Chatroom'})
+  } else {
+    next()
+  }
+}
 const routes = [
   {
     path: '/',
     name: 'Welcome',
     component: Welcome,
+    beforeEnter: requireNoAuth
   },
   {
     path: '/chat',
