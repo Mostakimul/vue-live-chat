@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import SignupForm from '../components/SignupForm.vue';
-import LoginForm from '../components/LoginForm.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import SignupForm from "../components/SignupForm.vue";
+import LoginForm from "../components/LoginForm.vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 export default {
   components: {
     SignupForm,
@@ -37,7 +37,7 @@ export default {
     const router = useRouter();
 
     const enterChat = () => {
-      router.push({ name: 'Chatroom' });
+      router.push({ name: "Chatroom" });
     };
 
     return { showLogin, enterChat };
